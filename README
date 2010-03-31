@@ -1,6 +1,7 @@
 brabeion
 ========
 
-The main change to the original version is that I need badges for any kind of objects (Projects, Groups etc). So instead of user I am going to relate to a ContentType and ObjectId.
+The main change to the original version is that I need badges for any kind of objects (Projects, Groups etc). 
+So instead of user I am going to relate to a ContentType and ObjectId.
 
 Please see ``docs/usage.txt`` for more information on using ``brabeion``.
