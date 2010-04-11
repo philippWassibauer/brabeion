@@ -28,6 +28,9 @@ class BadgeCache(object):
     def possibly_award_badge(self, event, **state):
         for badge in self._event_registry[event]:
             badge.possibly_award(**state)
+            
+    def get_all_badges(self):
+        return self._registry
 
 
 class AwardedBadge(object):

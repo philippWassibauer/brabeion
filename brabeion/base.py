@@ -22,7 +22,7 @@ class Badge(object):
         assert not (self.multiple and len(self.levels) > 1)
         for i, level in enumerate(self.levels):
             if not isinstance(level, BadgeDetail):
-                self.levels[i] = BadgeDetail(level)
+                self.levels[i] = BadgeDetail(level.get('name'), level.get('description'))
     
     def possibly_award(self, **state):
         """

@@ -17,18 +17,24 @@ def badge_list(request):
             ).values_list("slug", "level"))
     else:
         user_badges = []
+    all_badges = badges.get_all_badges()
     badges_awarded = BadgeAward.objects.values("slug", "level").annotate(
         num = Count("pk")
     )
+    
     badges_dict = defaultdict(list)
-    for badge in badges_awarded:
-        badges_dict[badge["slug"]].append({
-            "level": badge["level"],
-            "name": badges._registry[badge["slug"]].levels[badge["level"]].name,
-            "description": badges._registry[badge["slug"]].levels[badge["level"]].description,
-            "count": badge["num"],
-            "user_has": (badge["slug"], badge["level"]) in user_badges
-        })
+    for badge_name in all_badges.keys():
+        badge = all_badges[badge_name]
+        counter = 0
+        for level in badge.levels:
+            badges_dict[badge.slug].append({
+                "level": counter+1,
+                "name": badges._registry[badge.slug].levels[counter].name,
+                "description": badges._registry[badge.slug].levels[counter].description,
+                #"count": badges_awarded[badge_name].badge["num"],
+                "user_has": (badge.slug, counter) in user_badges
+            })
+            counter = counter+1
     
     for badge_group in badges_dict.values():
         badge_group.sort(key=lambda o: o["level"])
