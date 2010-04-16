@@ -49,6 +49,11 @@ class AwardedBadge(object):
     @property
     def name(self):
         return self._badge.levels[self.level].name
+        
+    @property
+    def icon(self):
+        from django.conf import settings
+        return settings.STATIC_URL+"images/badges/"+self._badge.levels[self.level].name.lower()+"-"+str(self.level)+".png"
     
     @property
     def description(self):
